@@ -7,9 +7,18 @@ RUN yum install -y \
       gzip \
       tar \
       && \
-      curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz" | tar Cxz /usr/local
-
+      curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz" | tar Cxz /usr/local \
+      && \
+      yum remove -y \
+      gcc \
+      gzip \
+      tar \
+      && \
+      yum clean all \
+      && \
+      rm -rf /var/cache/yum
 
 ENV PATH=/usr/local/go/bin:$PATH
 ENV      GO111MODULE=on
 
+CMD ["/bin/bash"]
